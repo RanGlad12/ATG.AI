@@ -154,7 +154,7 @@ cosine_decay_callback = WarmupCosineDecay(total_steps=total_steps,
                              target_lr=5e-4)
 
 # Train the model
-train = True # change this to True if you want to train the model from scratch
+train = False # change this to True if you want to train the model from scratch
 if train:
   hist = model.fit(train_generator, epochs=epochs, validation_data=val_generator, callbacks=[cosine_decay_callback, model_checkpoint_callback])
   plot_hist(hist)
