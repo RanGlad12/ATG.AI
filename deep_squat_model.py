@@ -73,3 +73,41 @@ for file in filenames:
       shutil.copy(os.path.join(src_dir, file), test_img_deep)
     else:
       shutil.copy(os.path.join(src_dir, file), test_img_shallow)
+
+# Get number of training examples
+num_train = 0
+filenames = os.listdir(train_img_shallow)
+for file in filenames:
+  num_train += 1
+filenames = os.listdir(train_img_deep)
+for file in filenames:
+  num_train += 1
+
+# Define image size and batch size
+batch_size = 32
+img_height = 299
+img_width = 299
+
+# Create image data generators
+train_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rotation_range=0.0,
+                                                                width_shift_range=0.2,
+                                                                height_shift_range=0.2,
+                                                                horizontal_flip=True)
+val_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rotation_range=0.0,
+                                                                width_shift_range=0.2,
+                                                                height_shift_range=0.2,
+                                                                horizontal_flip=True)
+
+train_generator = train_datagen.flow_from_directory(train_img_path, 
+                                                    target_size=(img_height, img_width),
+                                                    color_mode="rgb",
+                                                    batch_size=32,
+                                                    class_mode="categorical",
+                                                    shuffle=True,
+                                                    )
+val_generator = train_datagen.flow_from_directory(val_img_path, 
+                                                    target_size=(img_height, img_width),
+                                                    color_mode="rgb",
+                                                    batch_size=32,
+                                                    class_mode="categorical",
+                                                    shuffle=True)
