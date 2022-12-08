@@ -105,6 +105,7 @@ val_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rotation_range=0.0
                                                                 width_shift_range=0.2,
                                                                 height_shift_range=0.2,
                                                                 horizontal_flip=True)
+test_datagen = tf.keras.preprocessing.image.ImageDataGenerator()
 
 train_generator = train_datagen.flow_from_directory(train_img_path, 
                                                     target_size=(img_height, img_width),
@@ -119,6 +120,12 @@ val_generator = train_datagen.flow_from_directory(val_img_path,
                                                     batch_size=32,
                                                     class_mode="categorical",
                                                     shuffle=True)
+test_generator = test_datagen.flow_from_directory(directory=test_img_path,
+                                                    target_size=(img_height, img_width),
+                                                    color_mode="rgb",
+                                                    batch_size=1,
+                                                    class_mode="categorical",
+                                                    shuffle=False)
 
 model = build_model(num_classes=2, img_height=img_height, img_width=img_width)
 
@@ -147,5 +154,19 @@ cosine_decay_callback = WarmupCosineDecay(total_steps=total_steps,
                              target_lr=5e-4)
 
 # Train the model
-hist = model.fit(train_generator, epochs=epochs, validation_data=val_generator, callbacks=[cosine_decay_callback, model_checkpoint_callback])
-plot_hist(hist)
+train = True # change this to True if you want to train the model from scratch
+if train:
+  hist = model.fit(train_generator, epochs=epochs, validation_data=val_generator, callbacks=[cosine_decay_callback, model_checkpoint_callback])
+  plot_hist(hist)
+
+# load the best model
+model.load_weights(checkpoint_filepath)
+
+# Inference
+inference = True
+if inference:
+  # Generate predictions on the images in the test folder
+  pred = model.predict(test_generator)
+  predicted_class_indices = np.argmax(pred,axis=1)
+  predicted_class_indices = pd.DataFrame(predicted_class_indices)
+  predicted_class_indices.to_csv('deep_squat_predictions.csv')
