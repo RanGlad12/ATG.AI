@@ -15,9 +15,11 @@ Run squat_judge.py. A pop-up window will open asking to pick a video file to ana
 ## Credits
 This work could not be done without the terrific dataset created by Paritosh Parmar, Amol Gharat, and Helge Rhodin from the University of British Columbia and FlexAI.Inc. Please check Paritosh's GitHub for their project: https://github.com/ParitoshParmar/Fitness-AQA
 
-> @article{parmar2022domain,
-    title={Domain Knowledge-Informed Self-Supervised Representations for Workout Form Assessment},
-    author={Parmar, Paritosh and Gharat, Amol and Rhodin, Helge},
-    journal={arXiv preprint arXiv:2202.14019},
-    year={2022}
-  }
+```
+@article{parmar2022domain,
+  title={Domain Knowledge-Informed Self-Supervised Representations for Workout Form Assessment},
+  author={Parmar, Paritosh and Gharat, Amol and Rhodin, Helge},
+  journal={arXiv preprint arXiv:2202.14019},
+  year={2022}
+}
+```
