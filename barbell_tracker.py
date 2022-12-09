@@ -6,6 +6,9 @@ print(f"Setup complete. Using torch {torch.__version__} ({torch.cuda.get_device_
 
 # Import barbell dataset from Roboflow
 from roboflow import Roboflow
-rf = Roboflow(api_key="t6tj7mQYwRntDdaHocGQ")
-project = rf.workspace("ecnu").project("gym_barbell")
-dataset = project.version(1).download("yolov5")
+#rf = Roboflow(api_key="t6tj7mQYwRntDdaHocGQ")
+#project = rf.workspace("ecnu").project("gym_barbell")
+#dataset = project.version(1).download("yolov5")
+
+
+
