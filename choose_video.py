@@ -12,6 +12,6 @@ def choose_video():
         if event == sg.WIN_CLOSED or event=="Exit":
             break
         elif event == "Submit":
-            #print(values["-IN-"])
+            print(values["-IN-"])
             filepath = values["-IN-"]
     return filepath
