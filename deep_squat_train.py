@@ -16,7 +16,7 @@ from plot_hist import plot_hist
 from deep_squat_cosine_decay import WarmupCosineDecay
 
 
-def train_squat_classifier(train=False):
+def train_squat_classifier(train=False, inference=False):
   # load dataset labels
   labels_path = 'Shallow_Squat_Error_Dataset/labels_shallow_depth.json'
   labels = pd.read_json(labels_path,  typ='dictionary', convert_axes=False ,convert_dates=False)
@@ -94,7 +94,7 @@ def train_squat_classifier(train=False):
     num_train += 1
 
   # Define image size and batch size
-  batch_size = 1
+  batch_size = 32
   img_height = 299
   img_width = 299
 
@@ -164,7 +164,6 @@ def train_squat_classifier(train=False):
   model.load_weights(checkpoint_filepath)
 
   # Inference
-  inference = True
   if inference:
     # Generate predictions on the images in the test folder
     pred = model.predict(test_generator)

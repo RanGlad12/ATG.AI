@@ -15,5 +15,5 @@ def barbell_tracker_train(save_best=False):
 
 def barbell_tracker_detect(video_path):
     os.chdir('yolov5')
-    os.system('python detect.py --weights /content/drive/MyDrive/best.pt --img 416 --conf 0.4 --source {video_path} --save-txt')
+    os.system(f'python detect.py --weights ../best.pt --img 416 --conf 0.4 --source {video_path} --save-txt')
     os.chdir('..')
