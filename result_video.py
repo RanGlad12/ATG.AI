@@ -83,8 +83,10 @@ def classify_video(classification_model, video_path, peaks, img_height=299, img_
 def result_video(video_path, result_video_path, peaks, deep_squats):
     cap = cv2.VideoCapture(video_path)
 
-    fourcc = cv2.VideoWriter_fourcc('M','J','P','G')
-    result_vid = cv2.VideoWriter(result_video_path, fourcc, 20.0,(int(cap.get(3)),int(cap.get(4))))
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    result_vid = cv2.VideoWriter(result_video_path, fourcc, 20.0, (int(cap.get(3)),int(cap.get(4))))
+    #fourcc = cv2.VideoWriter_fourcc('M','J','P','G')
+    #result_vid = cv2.VideoWriter(result_video_path, fourcc, 20.0,(int(cap.get(3)),int(cap.get(4))))
 
 
     if (cap.isOpened()== False): 
@@ -123,19 +125,19 @@ def result_video(video_path, result_video_path, peaks, deep_squats):
                         text = 'Deep squat'
                     else:
                         text = 'Shallow squat'
-                        frame = cv2.putText(frame, text, org, font, 
-                                        fontScale, color, thickness, cv2.LINE_AA)
-                        plt.imshow(frame[:,:,::-1])
-                        plt.show()
-                        write_counter += 1
+                    frame = cv2.putText(frame, text, org, font, 
+                                    fontScale, color, thickness, cv2.LINE_AA)
+                    #plt.imshow(frame[:,:,::-1])
+                    #plt.show()
+                    write_counter += 1
 
                 if write_counter >= 20 - 1:
                     i += 1
                     write_counter = 0
                 
 
-                result_vid.write(frame)
-                frame_counter += 1
+            result_vid.write(frame)
+            frame_counter += 1
         else:
             break
 
