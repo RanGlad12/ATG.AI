@@ -31,3 +31,4 @@ torch==1.13.0
 torchsummary==1.5.1
 tqdm==4.64.1
 roboflow
+PySimpleGUI

@@ -14,6 +14,7 @@ from barbell_tracker import barbell_tracker_train, barbell_tracker_detect
 from find_tracker_peaks import find_tracker_peaks
 from deep_squat_model import build_model
 from result_video import classify_video, result_video
+from choose_video import choose_video
 
 '''
 I have already trained the classifier and tracker models for you.
@@ -25,7 +26,9 @@ train_classifier = False #change to True if you want to train the deep squat ima
 classifier_inference = False #change to True if you want to run classification on images in the test folder
 train_tracker = False #change to True if you want to train the yolov5 custom barbell tracker
 
-video_path = 'C:/Users/Ran/Documents/ATG_AI/ATG.AI/IMG_0441.mov'
+#video_path = 'C:/Users/Ran/Documents/ATG_AI/ATG.AI/IMG_0441.mov'
+
+video_path = choose_video()
 
 train_squat_classifier(train_classifier, classifier_inference)
 
