@@ -13,6 +13,7 @@ from deep_squat_train import train_squat_classifier
 from barbell_tracker import barbell_tracker_train, barbell_tracker_detect
 from find_tracker_peaks import find_tracker_peaks
 from deep_squat_model import build_model
+from result_video import classify_video, result_video
 
 '''
 I have already trained the classifier and tracker models for you.
@@ -59,6 +60,10 @@ plt.show()
 checkpoint_path = 'deep_squat.hdf5'
 classification_model = build_model(num_classes=2, img_height=299, img_width=299)
 classification_model.load_weights(checkpoint_path)
+
+deep_squats = classify_video(classification_model, video_path, peaks)
+output_path = 'result_video.mp4'
+result_video(video_path, output_path, peaks, deep_squats)
 
 
 print('Done!')
