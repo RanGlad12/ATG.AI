@@ -7,7 +7,7 @@ ATG.AI or ass-to-grass.AI is an automatic computer vision squat depth judge base
 
 ATG.AI consists of two machine learning steps. First, a barbell image dataset was used to train a YoloV5 object detector with a single class. The trained YoloV5 is then used to track the barbell in a video of a person doing a squat or squats. The barbell movement in the image y axis is extracted and the peaks corresponding to the deepest point of the squat are marked. A few frames in a window around the peak are then fed into an EfficientNet classifier network trained on images of deep and shallow squats. If a certain percentage of the images are classified as a deep squat we denote the squat as a valid squat, and otherwise it is an invalid squat.
 
-Eventually the project might evolve to include additional movements with different standards such as the clean and jerk, snatch, deadlift, bench press etc. using a similar approach. 
+Eventually the project might evolve to include additional movements with different standards such as the clean and jerk, snatch, deadlift, bench press etc. using a similar approach. Another potential goal is to port it to a mobile app so that users can get a more immediate feedback instead of analyzing videos offline.
 
 ## Installation
 Clone the repository, and run pip install -r requirements.txt in the terminal.
