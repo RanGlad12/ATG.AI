@@ -26,8 +26,6 @@ train_classifier = False #change to True if you want to train the deep squat ima
 classifier_inference = False #change to True if you want to run classification on images in the test folder
 train_tracker = False #change to True if you want to train the yolov5 custom barbell tracker
 
-#video_path = 'C:/Users/Ran/Documents/ATG_AI/ATG.AI/IMG_0441.mov'
-
 video_path = choose_video()
 
 train_squat_classifier(train_classifier, classifier_inference)
