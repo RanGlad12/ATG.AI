@@ -13,7 +13,7 @@ Clone the repository, and run pip install -r requirements.txt in the terminal.
 Run squat_judge.py. A pop-up window will open asking to pick a video file to analyze. Supported formats are all the formats supported by YoloV5, though I have only tested on .mp4 and .avi. 
 
 ## Credits
-This work could not be done without the terrific dataset created by Paritosh Parmar, Amol Gharat, and Helge Rhodin from the University of British Columbia and FlexAI.Inc. Please check Paritosh's GitHub for their project: https://github.com/ParitoshParmar/Fitness-AQA
+This work could not be done without the terrific dataset created by Paritosh Parmar, Amol Gharat, and Helge Rhodin from the University of British Columbia and FlexAI.Inc. Please check Paritosh's GitHub for their project: https://github.com/ParitoshParmar/Fitness-AQA and if you find their work useful please cite it.
 
 ```
 @article{parmar2022domain,
