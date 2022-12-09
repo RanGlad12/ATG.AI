@@ -6,9 +6,13 @@ import tensorflow as tf
 import pandas as pd
 import os
 import shutil
+import scipy as sp
+import scipy.signal
 
 from deep_squat_train import train_squat_classifier
 from barbell_tracker import barbell_tracker_train, barbell_tracker_detect
+from find_tracker_peaks import find_tracker_peaks
+from deep_squat_model import build_model
 
 '''
 I have already trained the classifier and tracker models for you.
@@ -30,7 +34,31 @@ if train_tracker:
 barbell_tracker_detect(video_path)
 
 
-
+# order the detected frames
 labels_dir = 'yolov5/runs/detect/exp/labels'
 frames = os.listdir(labels_dir)
 frames = natsort.natsorted(frames)
+
+x, y = find_tracker_peaks(frames, labels_dir)
+x = np.asarray(x)
+y = np.asarray(y)
+
+# find frames corresponding to the bottom of the squat, i.e. barbell is at the lowest point
+prominence = 0.03
+width = 20
+peaks, properties = sp.signal.find_peaks(y, prominence=prominence, width=width)
+
+
+plt.plot(y)
+plt.plot(peaks, y[peaks], "x", markersize=10, linewidth=10)
+plt.title('Identify squat frames')
+plt.xlabel('Frame number')
+plt.ylabel('Relative y coordinate')
+plt.show()
+
+checkpoint_path = 'deep_squat.hdf5'
+classification_model = build_model(num_classes=2, img_height=299, img_width=299)
+classification_model.load_weights(checkpoint_path)
+
+
+print('Done!')
