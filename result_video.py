@@ -8,6 +8,8 @@ import numpy as np
 def classify_video(classification_model,
                    video_path,
                    peaks,
+                   frames_before,
+                   frames_after
                    img_height=299,
                    img_width=299):
     cap = cv2.VideoCapture(video_path)
@@ -18,9 +20,7 @@ def classify_video(classification_model,
     except Exception as ex:
         print(f'Exception {ex} has occured during folder creation')
 
-    # define the window around the peak for which frames will be classified
-    frames_before = 8
-    frames_after = 0
+
     # at least deep_threshold of the frames need to be classified
     # as deep for the squat to count as deep
     deep_threshold = 0.3

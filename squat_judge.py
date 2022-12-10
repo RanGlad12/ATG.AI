@@ -71,7 +71,17 @@ classification_model = build_model(num_classes=2,
                                    img_width=299)
 classification_model.load_weights(checkpoint_path)
 
-deep_squats = classify_video(classification_model, video_path, peaks)
+# Define frames to classify according to around the peaks
+frames_before = 8
+frames_after = 0
+
+deep_squats = classify_video(classification_model,
+                             video_path,
+                             peaks,
+                             frames_before, 
+                             frames_after,
+                             img_height=299,
+                             img_width=299)
 output_path = 'result_video.avi'
 result_video(video_path, output_path, peaks, deep_squats)
 
