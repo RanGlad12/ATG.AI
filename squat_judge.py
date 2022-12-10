@@ -1,9 +1,6 @@
 import natsort
 import numpy as np
-import cv2
 import matplotlib.pyplot as plt
-import tensorflow as tf
-import pandas as pd
 import os
 import shutil
 import scipy as sp
@@ -20,11 +17,19 @@ from choose_video import choose_video
 I have already trained the classifier and tracker models for you.
 However, you can retrain them should you like to.
 Just change the following flags to True.
+Note that to train the classifier you need access to a deep/shallow
+squat database, as I cannot provide the database I have used
+due to a user agreement and privacy concerns.
 '''
-
-train_classifier = False #change to True if you want to train the deep squat image classifier
-classifier_inference = False #change to True if you want to run classification on images in the test folder
-train_tracker = False #change to True if you want to train the yolov5 custom barbell tracker
+# change to True if you want to train
+#  the deep squat image classifier
+train_classifier = False
+# change to True if you want to run
+#  classification on images in the test folder
+classifier_inference = False
+# change to True if you want to
+# train the yolov5 custom barbell tracker
+train_tracker = False
 
 video_path = choose_video()
 
@@ -45,7 +50,8 @@ x, y = find_tracker_peaks(frames, labels_dir)
 x = np.asarray(x)
 y = np.asarray(y)
 
-# find frames corresponding to the bottom of the squat, i.e. barbell is at the lowest point
+# find frames corresponding to the bottom of the squat,
+# i.e. barbell is at the lowest point
 prominence = 0.03
 width = 20
 peaks, properties = sp.signal.find_peaks(y, prominence=prominence, width=width)
@@ -59,24 +65,29 @@ plt.ylabel('Relative y coordinate')
 plt.show()
 
 checkpoint_path = 'deep_squat.hdf5'
-classification_model = build_model(num_classes=2, img_height=299, img_width=299)
+classification_model = build_model(num_classes=2,
+                                   img_height=299,
+                                   img_width=299)
 classification_model.load_weights(checkpoint_path)
 
 deep_squats = classify_video(classification_model, video_path, peaks)
 output_path = 'result_video.avi'
 result_video(video_path, output_path, peaks, deep_squats)
 
+
 # clear folders
 def clear_files(folder):
     for filename in os.listdir(folder):
-                file_path = os.path.join(folder, filename)
-                try:
-                    if os.path.isfile(file_path) or os.path.islink(file_path):
-                        os.unlink(file_path)
-                    elif os.path.isdir(file_path):
-                        shutil.rmtree(file_path)
-                except Exception as e:
-                    print('Failed to delete %s. Reason: %s' % (file_path, e))
+        file_path = os.path.join(folder, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+
 clear_files('test/frames')
 clear_files('yolov5/runs/detect')
 
