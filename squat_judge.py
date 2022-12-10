@@ -33,7 +33,8 @@ train_tracker = False
 
 video_path = choose_video()
 
-train_squat_classifier(train_classifier, classifier_inference)
+if train_classifier:
+    train_squat_classifier(classifier_inference)
 
 if train_tracker:
     barbell_tracker_train(train_tracker)

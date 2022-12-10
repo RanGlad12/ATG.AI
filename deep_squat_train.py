@@ -16,7 +16,7 @@ from plot_hist import plot_hist
 from deep_squat_cosine_decay import WarmupCosineDecay
 
 
-def train_squat_classifier(train=False, inference=False):
+def train_squat_classifier(inference=False):
   # load dataset labels
   labels_path = 'Shallow_Squat_Error_Dataset/labels_shallow_depth.json'
   labels = pd.read_json(labels_path,  typ='dictionary', convert_axes=False ,convert_dates=False)
@@ -156,9 +156,8 @@ def train_squat_classifier(train=False, inference=False):
                               target_lr=5e-4)
 
   # Train the model
-  if train:
-    hist = model.fit(train_generator, epochs=epochs, validation_data=val_generator, callbacks=[cosine_decay_callback, model_checkpoint_callback])
-    plot_hist(hist)
+  hist = model.fit(train_generator, epochs=epochs, validation_data=val_generator, callbacks=[cosine_decay_callback, model_checkpoint_callback])
+  plot_hist(hist)
 
   # load the best model
   model.load_weights(checkpoint_filepath)
