@@ -25,7 +25,7 @@ due to a user agreement and privacy concerns.
 os.system('git clone https://github.com/ultralytics/yolov5')
 os.chdir('yolov5')
 os.system('pip install -qr requirements.txt')
-os.chdir(''..'')
+os.chdir('..')
 # change to True if you want to train
 #  the deep squat image classifier
 train_classifier = False
