@@ -16,7 +16,7 @@ Validation accuracy of the classifier is 87% on single images and I have not yet
 Clone the repository, and run pip install -r requirements.txt in the terminal.
 
 ## Usage
-Run squat_judge.py. A pop-up window will open asking to pick a video file to analyze. Supported formats are all the formats supported by YoloV5, though I have only tested on .mp4 and .avi. By default training for the tracker and classifier networks is disabled. You may enable them in suqat_judge.py by setting
+Run squat_judge.py. A pop-up window will open asking to pick a video file to analyze. Choose a video file, click submit and close the window. After the program is done running a video file result_video.avi will be generated. Supported formats are all the formats supported by YoloV5, though I have only tested on .mp4 and .avi. By default training for the tracker and classifier networks is disabled. You may enable them in suqat_judge.py by setting
 ```
 train_tracker = True
 train_classifier = True
