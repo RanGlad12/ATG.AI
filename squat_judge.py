@@ -57,13 +57,15 @@ prominence = 0.03
 width = 20
 peaks, properties = sp.signal.find_peaks(y, prominence=prominence, width=width)
 
-
+'''
+# Plot peaks for debug purposes
 plt.plot(y)
 plt.plot(peaks, y[peaks], "x", markersize=10, linewidth=10)
 plt.title('Identify squat frames')
 plt.xlabel('Frame number')
 plt.ylabel('Relative y coordinate')
 plt.show()
+'''
 
 checkpoint_path = 'deep_squat.hdf5'
 classification_model = build_model(num_classes=2,
