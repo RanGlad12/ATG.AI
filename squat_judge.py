@@ -94,7 +94,10 @@ deep_squats = classify_video(classification_model,
                              img_height=299,
                              img_width=299)
 output_path = 'result_video.avi'
-result_video(video_path, output_path, peaks, deep_squats)
+video_name = video_path.split('/')
+video_name = video_name[-1]
+tracking_video_path = 'yolov5/runs/detect/exp/' + video_name
+result_video(tracking_video_path, output_path, peaks, deep_squats)
 
 
 # clear folders

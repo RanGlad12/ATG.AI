@@ -91,7 +91,7 @@ def result_video(video_path, result_video_path, peaks, deep_squats):
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
     result_vid = cv2.VideoWriter(result_video_path,
                                  fourcc,
-                                 20.0,
+                                 30.0,
                                  (int(cap.get(3)), int(cap.get(4))))
 
     if (cap.isOpened() is False):
@@ -106,13 +106,15 @@ def result_video(video_path, result_video_path, peaks, deep_squats):
         # Capture frame-by-frame
         ret, frame = cap.read()
         if ret is True:
-
+            height = frame.shape[0]
+            width = frame.shape[1]
             # font
             font = cv2.FONT_HERSHEY_SIMPLEX
             # org
             org = (50, 200)
             # fontScale
-            fontScale = 3.5
+            scale = 1 # this value can be from 0 to 1 (0,1] to change the size of the text relative to the image
+            fontScale = min(width, height)/(250/scale)
             # Blue color in BGR
             color = (255, 0, 0)
             # Line thickness of 2 px
@@ -121,7 +123,7 @@ def result_video(video_path, result_video_path, peaks, deep_squats):
             if i < len(peaks):
                 # pick the window around the identified peak frame
                 if frame_counter >= peaks[i] and \
-                   frame_counter <= peaks[i] + 20:
+                   frame_counter <= peaks[i] + 30:
                     if deep_squats[i]:
                         text = 'Deep squat'
                     else:
@@ -133,7 +135,7 @@ def result_video(video_path, result_video_path, peaks, deep_squats):
                     # plt.show()
                     write_counter += 1
 
-                if write_counter >= 20 - 1:
+                if write_counter >= 30:
                     i += 1
                     write_counter = 0
 
