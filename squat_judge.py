@@ -21,11 +21,15 @@ Note that to train the classifier you need access to a deep/shallow
 squat database, as I cannot provide the database I have used
 due to a user agreement and privacy concerns.
 '''
+
+'''
 # Install yolov5
 os.system('git clone https://github.com/ultralytics/yolov5')
 os.chdir('yolov5')
 os.system('pip install -qr requirements.txt')
 os.chdir('..')
+'''
+
 # change to True if you want to train
 #  the deep squat image classifier
 train_classifier = False
