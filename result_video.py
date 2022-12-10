@@ -9,7 +9,7 @@ def classify_video(classification_model,
                    video_path,
                    peaks,
                    frames_before,
-                   frames_after
+                   frames_after,
                    img_height=299,
                    img_width=299):
     cap = cv2.VideoCapture(video_path)
