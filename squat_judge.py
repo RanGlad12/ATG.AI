@@ -42,7 +42,7 @@ if train_tracker:
 barbell_tracker_detect(video_path)
 
 
-# order the detected frames
+# order the detected frames acording to video order
 labels_dir = 'yolov5/runs/detect/exp/labels'
 frames = os.listdir(labels_dir)
 frames = natsort.natsorted(frames)
