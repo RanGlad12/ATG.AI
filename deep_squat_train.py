@@ -18,13 +18,13 @@ from deep_squat_cosine_decay import WarmupCosineDecay
 
 def train_squat_classifier(inference=False):
   # load dataset labels
-  labels_path = 'Shallow_Squat_Error_Dataset/labels_shallow_depth.json'
+  labels_path = '../Shallow_Squat_Error_Dataset/labels_shallow_depth.json'
   labels = pd.read_json(labels_path,  typ='dictionary', convert_axes=False ,convert_dates=False)
   labels = labels.to_frame()
   labels = labels.reset_index()
 
   # load training, validation and test split IDs
-  ids_path = 'Shallow_Squat_Error_Dataset/splits'
+  ids_path = '../Shallow_Squat_Error_Dataset/splits'
   train_ids_path =  ids_path + '/train_ids.json'
   val_ids_path = ids_path + '/val_ids.json'
   test_ids_path = ids_path + '/test_ids.json'
@@ -34,8 +34,8 @@ def train_squat_classifier(inference=False):
   test_ids = pd.read_json(test_ids_path, dtype=False, convert_axes=False ,convert_dates=False)
 
   # Create train, val, test directories
-  parent_dir = 'Shallow_Squat_Error_Dataset'
-  src_dir = 'Shallow_Squat_Error_Dataset/crops_unaligned'
+  parent_dir = '../Shallow_Squat_Error_Dataset'
+  src_dir = '../Shallow_Squat_Error_Dataset/crops_unaligned'
   train_img_path = os.path.join(parent_dir, 'Train')
   train_img_shallow = os.path.join(train_img_path, 'shallow')
   train_img_deep = os.path.join(train_img_path, 'deep')
