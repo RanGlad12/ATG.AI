@@ -101,51 +101,52 @@ def result_video(video_path, result_video_path, peaks, deep_squats):
     i = 0
     write_counter = 0
     # Read until video is completed
-    while cap.isOpened():
+    try:
+        while cap.isOpened():
 
-        # Capture frame-by-frame
-        ret, frame = cap.read()
-        if ret:
-            height = frame.shape[0]
-            width = frame.shape[1]
-            # font
-            font = cv2.FONT_HERSHEY_SIMPLEX
-            # org
-            org = (50, 200)
-            # fontScale
-            # this value can be from 0 to 1 (0,1] to
-            # change the size of the text relative to the image
-            scale = 1 
-            font_scale = min(width, height)/(250/scale)
-            # Blue color in BGR
-            color = (255, 0, 0)
-            # Line thickness of 2 px
-            thickness = 8
-            # Using cv2.putText() method
-            if i < len(peaks):
-                # pick the window around the identified peak frame
-                if frame_counter >= peaks[i] and \
-                   frame_counter <= peaks[i] + 30:
-                    if deep_squats[i]:
-                        text = 'Deep squat'
-                    else:
-                        text = 'Shallow squat'
-                    frame = cv2.putText(frame, text, org, font,
-                                        font_scale, color, thickness,
-                                        cv2.LINE_AA)
-                    # plt.imshow(frame[:,:,::-1])
-                    # plt.show()
-                    write_counter += 1
+            # Capture frame-by-frame
+            ret, frame = cap.read()
+            if ret:
+                height = frame.shape[0]
+                width = frame.shape[1]
+                # font
+                font = cv2.FONT_HERSHEY_SIMPLEX
+                # org
+                org = (50, 200)
+                # fontScale
+                # this value can be from 0 to 1 (0,1] to
+                # change the size of the text relative to the image
+                scale = 1 
+                font_scale = min(width, height)/(250/scale)
+                # Blue color in BGR
+                color = (255, 0, 0)
+                # Line thickness of 2 px
+                thickness = 8
+                # Using cv2.putText() method
+                if i < len(peaks):
+                    # pick the window around the identified peak frame
+                    if frame_counter >= peaks[i] and \
+                    frame_counter <= peaks[i] + 30:
+                        if deep_squats[i]:
+                            text = 'Deep squat'
+                        else:
+                            text = 'Shallow squat'
+                        frame = cv2.putText(frame, text, org, font,
+                                            font_scale, color, thickness,
+                                            cv2.LINE_AA)
+                        # plt.imshow(frame[:,:,::-1])
+                        # plt.show()
+                        write_counter += 1
 
-                if write_counter >= 30:
-                    i += 1
-                    write_counter = 0
+                    if write_counter >= 30:
+                        i += 1
+                        write_counter = 0
 
-            result_vid.write(frame)
-            frame_counter += 1
-        else:
-            break
-
-    # When everything done, release the video capture object
-    cap.release()
-    result_vid.release()
+                result_vid.write(frame)
+                frame_counter += 1
+            else:
+                break
+    finally:
+        # When everything done, release the video capture object
+        cap.release()
+        result_vid.release()
