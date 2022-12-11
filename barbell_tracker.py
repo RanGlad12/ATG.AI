@@ -1,5 +1,6 @@
-import torch
 import os
+import torch
+
 # from IPython.display import Image, clear_output  # to display images
 
 print((f"Setup complete. Using torch {torch.__version__}",
@@ -7,6 +8,9 @@ print((f"Setup complete. Using torch {torch.__version__}",
 
 
 def barbell_tracker_train(save_best=False):
+    '''
+    Trains a yolov5 barbell tracker
+    '''
     print('Start training yolov5')
     os.chdir('yolov5')
     os.system(('python train.py --img 416 --batch 16 --epochs 150 --data',
@@ -18,6 +22,10 @@ def barbell_tracker_train(save_best=False):
 
 
 def barbell_tracker_detect(video_path):
+    '''
+    Uses the Yolov5 barbell tracker to detect a barbell in a video.
+    Saves the results to yolov5/runs/exp
+    '''
     os.chdir('yolov5')
     os.system(f'python detect.py --weights ../best.pt --img 416 --conf 0.4 --source {video_path} --save-txt')
     os.chdir('..')

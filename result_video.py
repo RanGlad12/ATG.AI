@@ -1,9 +1,9 @@
-import cv2
 import shutil
 import os
+import cv2
 import tensorflow as tf
 import numpy as np
-
+from clear_files import clear_files
 
 def classify_video(classification_model,
                    video_path,
@@ -12,6 +12,12 @@ def classify_video(classification_model,
                    frames_after,
                    img_height=299,
                    img_width=299):
+    '''
+    Recieves the Tensorflow classification model, the path of the frames of the video,
+    a list of peak frames, frames to consider before and after each peak, image height
+    and width.
+    Returns a list of whether each peak is a deep or shallow squat.
+    '''
     cap = cv2.VideoCapture(video_path)
     folder = 'test/frames/'
 
@@ -71,21 +77,18 @@ def classify_video(classification_model,
 
         # Remove .jpg files form folder
 
-        for filename in os.listdir(folder):
-            file_path = os.path.join(folder, filename)
-            try:
-                if os.path.isfile(file_path) or os.path.islink(file_path):
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-            except Exception as e:
-                print('Failed to delete %s. Reason: %s' % (file_path, e))
+        clear_files(folder)
 
     print('Valid squats in video: ', np.sum(deep_squats))
     return deep_squats
 
 
 def result_video(video_path, result_video_path, peaks, deep_squats):
+    '''
+    Opens the tracking video and writes a version of it
+    with deep/shallow squat written on the relevant frames.
+    Saves it to result_video.avi
+    '''
     cap = cv2.VideoCapture(video_path)
 
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
@@ -94,14 +97,14 @@ def result_video(video_path, result_video_path, peaks, deep_squats):
                                  30.0,
                                  (int(cap.get(3)), int(cap.get(4))))
 
-    if (cap.isOpened() is False):
+    if cap.isOpened() is False:
         print("Error opening video stream or file")
 
     frame_counter = 0
     i = 0
     write_counter = 0
     # Read until video is completed
-    while (cap.isOpened()):
+    while cap.isOpened():
 
         # Capture frame-by-frame
         ret, frame = cap.read()
@@ -113,8 +116,10 @@ def result_video(video_path, result_video_path, peaks, deep_squats):
             # org
             org = (50, 200)
             # fontScale
-            scale = 1 # this value can be from 0 to 1 (0,1] to change the size of the text relative to the image
-            fontScale = min(width, height)/(250/scale)
+            # this value can be from 0 to 1 (0,1] to
+            # change the size of the text relative to the image
+            scale = 1 
+            font_scale = min(width, height)/(250/scale)
             # Blue color in BGR
             color = (255, 0, 0)
             # Line thickness of 2 px
@@ -129,7 +134,7 @@ def result_video(video_path, result_video_path, peaks, deep_squats):
                     else:
                         text = 'Shallow squat'
                     frame = cv2.putText(frame, text, org, font,
-                                        fontScale, color, thickness,
+                                        font_scale, color, thickness,
                                         cv2.LINE_AA)
                     # plt.imshow(frame[:,:,::-1])
                     # plt.show()

@@ -1,70 +1,53 @@
+import os
+import shutil
 import natsort
 import numpy as np
 import matplotlib.pyplot as plt
-import os
-import shutil
 import scipy as sp
-import scipy.signal
 
 from deep_squat_train import train_squat_classifier
 from barbell_tracker import barbell_tracker_train, barbell_tracker_detect
-from find_tracker_peaks import find_tracker_peaks
+from get_tracker import get_tracker
 from deep_squat_model import build_model
 from result_video import classify_video, result_video
 from choose_video import choose_video
+from clear_files import clear_files
 
-'''
-I have already trained the classifier and tracker models for you.
-However, you can retrain them should you like to.
-Just change the following flags to True.
-Note that to train the classifier you need access to a deep/shallow
-squat database, as I cannot provide the database I have used
-due to a user agreement and privacy concerns.
-'''
-
-'''
-# Install yolov5
-os.system('git clone https://github.com/ultralytics/yolov5')
-os.chdir('yolov5')
-os.system('pip install -qr requirements.txt')
-os.chdir('..')
-'''
 
 # change to True if you want to train
 #  the deep squat image classifier
-train_classifier = False
+TRAIN_CLASSIFIER = False
 # change to True if you want to run
 #  classification on images in the test folder
-classifier_inference = False
+CLASSIFIER_INFERENCE = False
 # change to True if you want to
 # train the yolov5 custom barbell tracker
-train_tracker = False
+TRAIN_TRACKER = False
+
+if TRAIN_CLASSIFIER:
+    train_squat_classifier(CLASSIFIER_INFERENCE)
+
+if TRAIN_TRACKER:
+    barbell_tracker_train(TRAIN_TRACKER)
 
 video_path = choose_video()
-
-if train_classifier:
-    train_squat_classifier(classifier_inference)
-
-if train_tracker:
-    barbell_tracker_train(train_tracker)
-
 barbell_tracker_detect(video_path)
 
 
 # order the detected frames acording to video order
-labels_dir = 'yolov5/runs/detect/exp/labels'
-frames = os.listdir(labels_dir)
+LABELS_DIR = 'yolov5/runs/detect/exp/labels'
+frames = os.listdir(LABELS_DIR)
 frames = natsort.natsorted(frames)
 
-x, y = find_tracker_peaks(frames, labels_dir)
+x, y = get_tracker(frames, LABELS_DIR)
 x = np.asarray(x)
 y = np.asarray(y)
 
 # find frames corresponding to the bottom of the squat,
 # i.e. barbell is at the lowest point
-prominence = 0.03
-width = 20
-peaks, properties = sp.signal.find_peaks(y, prominence=prominence, width=width)
+PROMINENCE = 0.03
+WIDTH = 20
+peaks, properties = sp.signal.find_peaks(y, prominence=PROMINENCE, width=WIDTH)
 
 '''
 # Plot peaks for debug purposes
@@ -76,42 +59,28 @@ plt.ylabel('Relative y coordinate')
 plt.show()
 '''
 
-checkpoint_path = 'deep_squat.hdf5'
+CHECKPOINT_PATH = 'deep_squat.hdf5'
 classification_model = build_model(num_classes=2,
                                    img_height=299,
                                    img_width=299)
-classification_model.load_weights(checkpoint_path)
+classification_model.load_weights(CHECKPOINT_PATH)
 
 # Define frames to classify according to around the peaks
-frames_before = 8
-frames_after = 0
+FRAMES_BEFORE = 8
+FRAMES_AFTER = 0
 
 deep_squats = classify_video(classification_model,
                              video_path,
                              peaks,
-                             frames_before, 
-                             frames_after,
+                             FRAMES_BEFORE,
+                             FRAMES_AFTER,
                              img_height=299,
                              img_width=299)
-output_path = 'result_video.avi'
+OUTPUT_PATH = 'result_video.avi'
 video_name = video_path.split('/')
 video_name = video_name[-1]
 tracking_video_path = 'yolov5/runs/detect/exp/' + video_name
-result_video(tracking_video_path, output_path, peaks, deep_squats)
-
-
-# clear folders
-def clear_files(folder):
-    for filename in os.listdir(folder):
-        file_path = os.path.join(folder, filename)
-        try:
-            if os.path.isfile(file_path) or os.path.islink(file_path):
-                os.unlink(file_path)
-            elif os.path.isdir(file_path):
-                shutil.rmtree(file_path)
-        except Exception as e:
-            print('Failed to delete %s. Reason: %s' % (file_path, e))
-
+result_video(tracking_video_path, OUTPUT_PATH, peaks, deep_squats)
 
 clear_files('test/frames')
 clear_files('yolov5/runs/detect')
