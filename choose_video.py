@@ -8,7 +8,7 @@ def choose_video():
     Returns the filepath
     '''
     IN_COLAB = 'google.colab' in sys.modules
-
+    print(f'In colab: {IN_COLAB}')
     if not IN_COLAB: # Use GUI
         sg.theme("DarkTeal2")
         layout = [[sg.T("")],
