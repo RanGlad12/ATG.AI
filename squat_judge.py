@@ -68,7 +68,7 @@ classification_model.load_weights(CHECKPOINT_PATH)
 FRAMES_BEFORE = 3
 FRAMES_AFTER = 0
 # Fraction of frames that need to be classified as deep
-DEEP_THRESHOLD = 0.3
+DEEP_THRESHOLD = 0.2
 
 deep_squats = classify_video(classification_model,
                              video_path,
