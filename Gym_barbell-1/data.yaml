@@ -1,5 +1,0 @@
-names:
-- barbell
-nc: 1
-train: ../Gym_barbell-1/train/images
-val: ../Gym_barbell-1/valid/images
