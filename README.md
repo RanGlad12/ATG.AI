@@ -1,6 +1,6 @@
 # ATG.AI - the automatic squat depth judge
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/112420956/206809145-4082c506-b1f6-43d4-9774-861211e925ab.gif" alt="animated" width="240" height="320" />
+  <img src="https://user-images.githubusercontent.com/112420956/206929746-cfbc65f9-4143-4bba-8328-e21092bcd21d.gif" alt="animated" width="240" height="320" />
 </p>
 
 ATG.AI or ass-to-grass.AI is an automatic computer vision squat depth judge based on deep learning. In powerlifting and CrossFit competitions a squat is only valid if the hip crease moves below the height of the top of the knees. However, detecting whether a squat was deep enough or not is a challenging problem. In powerlifting competitions each squat is observed by three judges: one from each side of the lifter and one from the front. Two out of the three judges must agree that the squat was deep enough for the lift to be valid. In CrossFit, a single judge scores the lifter, but some events may include tens or even hundreds of squats. The goal of ATG.AI,  is to eventually assist or replace judges in such competitions, and to help atheletes training for such competitions in assessing their squat depth. 
