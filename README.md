@@ -13,6 +13,13 @@ Eventually the project might evolve to include additional movements with differe
 Validation accuracy of the classifier is 87% on single images and I have not yet produced a proper annotated video test dataset. It is best to use videos taken from a perspective or side view. Both the barbell and squat datasets contain a low number of images captured from the front and even less so directly from the back of the lifter. Therefore both the tracker and classifier's accuracy is degraded for those angles. I assume the video contains a barbell with plates loaded and that the movements performed are a set of either back squats or front squats captured by a stationary camera. In addition the code operates under the assumption of a single barbell and a single person in the video, though it should work well with a few sporadic detections (or mis-detections) of additional barbells. Spotters assisting with the squat can currently confuse the classifier as they are usually performing a shallow squat to assist the lifter.
 
 ## Installation
+There are two options on how to install this project.
+### In Google Colab
+Clone the repository, open https://colab.research.google.com/ in your browser and load the ATG_AI.ipynb notebook. Click run all. You may upload your own video and enter its path in the argument for 
+```
+!python squat_judge.py /path/of/your/video
+```
+### IDE
 Clone the repository, update the yolov5 submodule repository by running  
 ```
 git submodule init
