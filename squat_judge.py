@@ -43,6 +43,7 @@ if not IN_COLAB:
 else:
     # Colab doesn't support GUI
     video_path = sys.argv[0]
+print(video_path)
 barbell_tracker_detect(video_path)
 
 
