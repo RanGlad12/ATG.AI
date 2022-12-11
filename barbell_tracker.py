@@ -23,4 +23,4 @@ def barbell_tracker_detect(video_path):
     Uses the Yolov5 barbell tracker to detect a barbell in a video.
     Saves the results to yolov5/runs/exp
     '''
-    os.system(f'python yolov5/detect.py --weights ../best.pt --img 416 --conf 0.4 --source {video_path} --save-txt')
+    os.system(f'python yolov5/detect.py --weights best.pt --img 416 --conf 0.4 --source {video_path} --save-txt')
