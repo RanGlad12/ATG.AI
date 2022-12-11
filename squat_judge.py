@@ -1,4 +1,5 @@
 import os
+import sys
 import natsort
 import numpy as np
 #import matplotlib.pyplot as plt
@@ -11,6 +12,14 @@ from deep_squat_model import build_model
 from result_video import classify_video, result_video
 from choose_video import choose_video
 from clear_files import clear_files
+
+# Check whether running in Colab or not
+try:
+    import google.colab
+    IN_COLAB = True
+except:
+    IN_COLAB = False
+print(f'In colab: {IN_COLAB}')
 
 
 # change to True if you want to train
@@ -29,7 +38,11 @@ if TRAIN_CLASSIFIER:
 if TRAIN_TRACKER:
     barbell_tracker_train(TRAIN_TRACKER)
 
-video_path = choose_video()
+if not IN_COLAB:
+    video_path = choose_video()
+else:
+    # Colab doesn't support GUI
+    video_path = sys.argv[0]
 barbell_tracker_detect(video_path)
 
 
