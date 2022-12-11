@@ -25,8 +25,8 @@ pip install -r requirements.txt
 ## Usage
 Run squat_judge.py. A pop-up window will open asking to pick a video file to analyze. Choose a video file, click submit and close the window. After the program is done running a video file result_video.avi will be generated. Supported formats are all the formats supported by YoloV5, though I have only tested on .mp4, .mov and .avi. By default training for the tracker and classifier networks is disabled. You may enable them in suqat_judge.py by setting
 ```
-train_tracker = True
-train_classifier = True
+TRAIN_TRACKER = True
+TRAIN_CLASSIFIER = True
 ```
 Note that the dataset for the classifier is private and is not included in this repository - check the Credits section for details regarding how to obtain it.
 
