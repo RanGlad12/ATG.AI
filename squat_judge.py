@@ -4,6 +4,7 @@ import natsort
 import numpy as np
 #import matplotlib.pyplot as plt
 import scipy as sp
+import scipy.signal
 
 from deep_squat_train import train_squat_classifier
 from barbell_tracker import barbell_tracker_train, barbell_tracker_detect
