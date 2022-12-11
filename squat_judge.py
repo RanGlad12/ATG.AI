@@ -1,8 +1,7 @@
 import os
-import shutil
 import natsort
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import scipy as sp
 
 from deep_squat_train import train_squat_classifier
@@ -76,12 +75,14 @@ deep_squats = classify_video(classification_model,
                              FRAMES_AFTER,
                              img_height=299,
                              img_width=299)
+
 OUTPUT_PATH = 'result_video.avi'
 video_name = video_path.split('/')
 video_name = video_name[-1]
 video_name = video_name.split('.')
 video_name = video_name[0]
 tracking_video_path = 'yolov5/runs/detect/exp/' + video_name + '.mp4'
+
 result_video(tracking_video_path, OUTPUT_PATH, peaks, deep_squats)
 
 clear_files('test/frames')
