@@ -13,7 +13,7 @@ def classify_video(classification_model,
                    img_height=299,
                    img_width=299):
     '''
-    Recieves the Tensorflow classification model, the path of the frames of the video,
+    Receives the Tensorflow classification model, the path of the frames of the video,
     a list of peak frames, frames to consider before and after each peak, image height
     and width.
     Returns a list of whether each peak is a deep or shallow squat.
@@ -21,10 +21,7 @@ def classify_video(classification_model,
     cap = cv2.VideoCapture(video_path)
     folder = 'test/frames/'
 
-    try:
-        os.makedirs(folder)
-    except Exception as ex:
-        print(f'Exception {ex} has occured during folder creation')
+    os.makedirs(folder, exist_ok=True)
 
 
     # at least deep_threshold of the frames need to be classified
@@ -75,7 +72,7 @@ def classify_video(classification_model,
         else:
             deep_squats.append(0)
 
-        # Remove .jpg files form folder
+        # Remove .jpg files from folder
 
         clear_files(folder)
 
@@ -97,7 +94,7 @@ def result_video(video_path, result_video_path, peaks, deep_squats):
                                  30.0,
                                  (int(cap.get(3)), int(cap.get(4))))
 
-    if cap.isOpened() is False:
+    if not cap.isOpened():
         print("Error opening video stream or file")
 
     frame_counter = 0
@@ -108,7 +105,7 @@ def result_video(video_path, result_video_path, peaks, deep_squats):
 
         # Capture frame-by-frame
         ret, frame = cap.read()
-        if ret is True:
+        if ret:
             height = frame.shape[0]
             width = frame.shape[1]
             # font

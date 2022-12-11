@@ -47,18 +47,15 @@ def train_squat_classifier(inference=False):
     test_img_deep = os.path.join(test_img_path, 'deep')
     test_img_shallow = os.path.join(test_img_path, 'shallow')
 
-    try:
-        os.makedirs(train_img_path)
-        os.makedirs(train_img_shallow)
-        os.makedirs(train_img_deep)
-        os.makedirs(val_img_path)
-        os.makedirs(val_img_shallow)
-        os.makedirs(val_img_deep)
-        os.makedirs(test_img_path)
-        os.makedirs(test_img_deep)
-        os.makedirs(test_img_shallow)
-    except Exception:
-        print('Folders already exist')
+    os.makedirs(train_img_path, exist_ok=True)
+    os.makedirs(train_img_shallow, exist_ok=True)
+    os.makedirs(train_img_deep, exist_ok=True)
+    os.makedirs(val_img_path, exist_ok=True)
+    os.makedirs(val_img_shallow, exist_ok=True)
+    os.makedirs(val_img_deep, exist_ok=True)
+    os.makedirs(test_img_path, exist_ok=True)
+    os.makedirs(test_img_deep, exist_ok=True)
+    os.makedirs(test_img_shallow, exist_ok=True)
 
     # Copy images to the appropriate folders but only if they exist in the train/val/test split
     filenames = os.listdir(src_dir)
