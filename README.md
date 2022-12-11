@@ -13,7 +13,12 @@ Eventually the project might evolve to include additional movements with differe
 Validation accuracy of the classifier is 87% on single images and I have not yet produced a proper annotated video test dataset. It is best to use videos taken from a perspective or side view. Both the barbell and squat datasets contain a low number of images captured from the front and even less so directly from the back of the lifter. Therefore both the tracker and classifier's accuracy is degraded for those angles. I assume the video contains a barbell with plates loaded and that the movements performed are a set of either back squats or front squats. In addition the code operates under the assumption of a single barbell and a single person in the video, though it should work well with a few sporadic detections (or mis-detections) of additional barbells. Spotters assisting with the squat can currently confuse the classifier as they are usually performing a shallow squat to assist the lifter.
 
 ## Installation
-Clone the repository, and run pip install -r requirements.txt in the terminal.
+Clone the repository, update the yolov5 submodule repository by running  
+```
+git submodule init
+git submodule update
+```
+in the terminal, then run pip install -r requirements.txt in the terminal.
 
 ## Usage
 Run squat_judge.py. A pop-up window will open asking to pick a video file to analyze. Choose a video file, click submit and close the window. After the program is done running a video file result_video.avi will be generated. Supported formats are all the formats supported by YoloV5, though I have only tested on .mp4 and .avi. By default training for the tracker and classifier networks is disabled. You may enable them in suqat_judge.py by setting
