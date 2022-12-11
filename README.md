@@ -17,7 +17,7 @@ There are two options for how to install this project.
 ### In Google Colab
 Clone the repository to get ATG_AI.ipynb (you may alternatively just copy its text and create your own .ipynb), open https://colab.research.google.com/ in your browser and load the ATG_AI.ipynb notebook. Click run all. You may upload your own video and enter its path in the argument for 
 ```
-!python squat_judge.py /path/of/your/video
+!python squat_judge.py path/of/your/video
 ```
 ### IDE
 Clone the repository, update the yolov5 submodule repository by running  
