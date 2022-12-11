@@ -10,12 +10,14 @@ def classify_video(classification_model,
                    peaks,
                    frames_before,
                    frames_after,
+                   deep_threshold,
                    img_height=299,
                    img_width=299):
     '''
     Receives the Tensorflow classification model, the path of the frames of the video,
-    a list of peak frames, frames to consider before and after each peak, image height
-    and width.
+    a list of peak frames, frames to consider before and after each peak,
+    deep_threshold fraction of frames that need to be classified as
+    deep squats for the squat to count as deep, image height and width.
     Returns a list of whether each peak is a deep or shallow squat.
     '''
     cap = cv2.VideoCapture(video_path)
@@ -23,10 +25,6 @@ def classify_video(classification_model,
 
     os.makedirs(folder, exist_ok=True)
 
-
-    # at least deep_threshold of the frames need to be classified
-    # as deep for the squat to count as deep
-    deep_threshold = 0.3
     deep_squats = []
 
     test_datagen = tf.keras.preprocessing.image.ImageDataGenerator()

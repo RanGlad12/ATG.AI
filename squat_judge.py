@@ -65,14 +65,17 @@ classification_model = build_model(num_classes=2,
 classification_model.load_weights(CHECKPOINT_PATH)
 
 # Define frames to classify according to around the peaks
-FRAMES_BEFORE = 8
+FRAMES_BEFORE = 3
 FRAMES_AFTER = 0
+# Fraction of frames that need to be classified as deep
+DEEP_THRESHOLD = 0.3
 
 deep_squats = classify_video(classification_model,
                              video_path,
                              peaks,
                              FRAMES_BEFORE,
                              FRAMES_AFTER,
+                             DEEP_THRESHOLD,
                              img_height=299,
                              img_width=299)
 
