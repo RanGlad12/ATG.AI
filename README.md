@@ -42,7 +42,7 @@ Note that the dataset for the classifier is private and is not included in this 
 Parameters to consider changing are the prominence of the detected peaks, width of the detected peaks, and the size of the window of frames considered in the classification.
 
 ## Credits
-This work could not be done without the terrific dataset created by Paritosh Parmar, Amol Gharat, and Helge Rhodin from the University of British Columbia and FlexAI.Inc. Please check Paritosh's GitHub for their project: https://github.com/ParitoshParmar/Fitness-AQA and if you find their work useful please cite it. You may also fill a request form to get their dataset, of which I used to shallow squat error dataset.
+This work could not be done without the terrific dataset created by Paritosh Parmar, Amol Gharat, and Rhodin Helge from the University of British Columbia and FlexAI.Inc. Please check Paritosh's GitHub for their project: https://github.com/ParitoshParmar/Fitness-AQA and if you find their work useful please cite it. You may also fill a request form to get their dataset, of which I used to shallow squat error dataset.
 
 ```
 @article{parmar2022domain,
